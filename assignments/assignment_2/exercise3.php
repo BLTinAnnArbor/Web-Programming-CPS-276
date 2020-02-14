@@ -17,7 +17,7 @@ for($row = 1; $row <= $numRows; $row++)
     $output .= "</tr>";
 }
 
-$output .= "<table>";
+$output .= "</table>";
 ?>
 <!doctype html>
 <html lang="en">
