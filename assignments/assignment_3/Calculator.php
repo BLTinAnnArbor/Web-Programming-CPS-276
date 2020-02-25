@@ -4,7 +4,7 @@ class Calculator{
     public function calc ($operator, $op1, $op2){
 
         if(!is_int($op1) || !is_int($op2) ){ // Checks for integers
-            return "A non-integer was entered. </br>";
+            return "<p>A non-integer was entered. </p>";
         }
 
         switch ($operator) {
@@ -25,13 +25,13 @@ class Calculator{
                     $res = $op1 / $op2;
                     $resStr = "division";
                 }else{
-                    return "Cannot divide by zero.</br>";
+                    return "<p>Cannot divide by zero.</p>";
                 }
             break;
             default:
-            return "Invalid operator."; 
+            return "<p>Invalid operator.</p>"; 
         }
-        return "The {$resStr} of the numbers is {$res}.</br>";
+        return "<p>The {$resStr} of the numbers is {$res}.</p>";
 
     }
 }

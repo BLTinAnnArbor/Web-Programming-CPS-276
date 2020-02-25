@@ -16,7 +16,7 @@
 <?php
 require_once "Calculator.php";
 
-$ErrStr = "You must enter a string and two numbers. </br>";
+$ErrStr = "<p>You must enter a string and two numbers. </p>";
 
 $Calculator = new Calculator();
 
