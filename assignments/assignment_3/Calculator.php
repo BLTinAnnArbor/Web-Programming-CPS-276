@@ -1,10 +1,10 @@
 <?php
 class Calculator{
     
-    public function calc ($operator, $op1, $op2){
+    public function calc ($operator="filler", $op1="filler", $op2="filler"){
 
-        if(!is_int($op1) || !is_int($op2) ){ // Checks for integers
-            return "<p>A non-integer was entered. </p>";
+        if(!(is_int($op1) && is_int($op2)) ){ // Checks for integers
+            return "<p>You must enter a string and two numbers. </p>";
         }
 
         switch ($operator) {
