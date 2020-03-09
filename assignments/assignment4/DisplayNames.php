@@ -3,7 +3,6 @@
 class DisplayNames{
    
     private $fullName;
-    private $formattedName;
     private $firstLast;
     private $lastFirst;
 
@@ -13,45 +12,33 @@ class DisplayNames{
     
     function addClearNames() 
     {
-        
         if(isset($_POST['submitButton'])) {
 
             $this->fullName = $_POST['fullname'];
+
             $this->nameListString = $_POST['nameList'];
+            $this->nameListString = rtrim($this->nameListString); // trims "\n"
 
             $this->formatName();
-            return $this->createArray();
-
-            //$this->makeLongString();
-
-            //return $this->localOutput;
+            $this->createAndSortArray();
+            return $this->makeLongString();
             
         }else if(isset($_POST['clearButton'])) {
             return  "";
         }       
     } // addClearNames()
 
-    function makeLongString(){ // has 3 or more names
+    function makeLongString(){ 
             foreach($this->nameListArray as $name){
                 $this->localOutput.= $name."\n";
-            }
-            // Trim the last ':' here ??
+            }    
        return $this->localOutput;
     }
 
-    function createArray(){ 
-        if(strlen($this->nameListString)<1){
-            return $this->lastFirst."\n";
-        }elseif(substr_count($this->nameListString, "\n")>1){
-            $this->nameListArray = explode("\n", $this->nameListString);
-            $len = count($this->nameListArray);
-            $this->nameListArray[$len-1] = $this->lastFirst;
-            return $this->makeLongString();
-        }else{   // only one name before this
-            array_push($this->nameListArray, $this->lastFirst);
-            return $this->nameListString.$this->lastFirst."\n";
-        }
-           
+    function createAndSortArray(){
+        $this->nameListArray = explode("\n", $this->nameListString); 
+        array_push($this->nameListArray, $this->lastFirst);       
+        sort($this->nameListArray);            
     }
 
     function formatName(){
