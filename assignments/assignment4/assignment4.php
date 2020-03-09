@@ -25,6 +25,9 @@ if(isset($_POST)){
     
   <div class="container">
     <h1>Add Names</h1>
+
+    <?php //echo "Current  PHP version: ".phpversion(); ?>
+
     <form action="assignment4.php" method="post">
         <input class="btn btn-primary" type="submit" name="submitButton" id="submitButton" value="Add Name" >
         <input class="btn btn-primary" type="submit" name="clearButton" id="clearButton" value="Clear Names">

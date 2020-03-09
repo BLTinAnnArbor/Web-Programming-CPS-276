@@ -6,8 +6,9 @@ class DisplayNames{
     private $firstLast;
     private $lastFirst;
 
-    private $nameListArray = array();
     private $nameListString;
+    private $nameListArray = array();
+    //private $nameListArray = [];   // errors when implemented below
     private $localOutput;
     
     function addClearNames() 
@@ -17,7 +18,7 @@ class DisplayNames{
             $this->fullName = $_POST['fullname'];
 
             $this->nameListString = $_POST['nameList'];
-            $this->nameListString = rtrim($this->nameListString); // trims "\n"
+            $this->nameListString = rtrim($this->nameListString); // trims eol "\n"
 
             $this->formatName();
             $this->createAndSortArray();
@@ -36,8 +37,12 @@ class DisplayNames{
     }
 
     function createAndSortArray(){
-        $this->nameListArray = explode("\n", $this->nameListString); 
-        array_push($this->nameListArray, $this->lastFirst);       
+        $this->nameListArray = explode("\n", $this->nameListString);
+
+        array_push($this->nameListArray, $this->lastFirst);
+        // Line below is used when $nameListArray = []. This implentation errors.  
+        //$this->nameListArray = $this->lastFirst;  
+
         sort($this->nameListArray);            
     }
 
