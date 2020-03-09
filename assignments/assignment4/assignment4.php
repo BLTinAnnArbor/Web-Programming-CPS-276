@@ -1,7 +1,7 @@
 <?php
 if(isset($_POST)){
-  require_once 'DisplayNames.php';
-  $addName = new DisplayNames();
+  require_once 'DisplayNames2.php';
+  $addName = new DisplayNames2();
 
   $output = $addName->addClearNames();
 }
