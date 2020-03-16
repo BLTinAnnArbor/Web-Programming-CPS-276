@@ -9,7 +9,6 @@ if($submitted){
   $myDir = new Directories();
 }
 
-
 if(isset($_POST['dirName'])){
   $myDir->mkDirAndFile(); 
 }

@@ -6,7 +6,6 @@ class Directories{
     private $textInput;
     private $dirStatus;
     
-
     function __construct() {
 
         $this->dirName = $_POST['dirName'];
@@ -18,30 +17,30 @@ class Directories{
         return $this->dirStatus;
     }
     
-
     public function mkDirAndFile() {
-       
-            $path = "directories/".$this->dirName;
+    
+        $path = "directories/".$this->dirName;
 
-            if(!file_exists($path)){
-                mkdir($path);    
-            }else{
-                $this->dirStatus = "A directory already exists with that name.";
-            }
+        if(!file_exists($path)){
+            mkdir($path);    
+        }
+        
+        chmod($path, 0777);
 
-            chmod($path, 0777);
+        if(file_exists($path."/readme.txt")){
+            $this->dirStatus = "A directory already does exist with that name.";
+        }else{
+            $this->dirStatus = "File and directory were created.";
+        }
 
-            try{
+        try{
+            $handle = fopen($path."/readme.txt", "w");
+            fwrite($handle, $this->textInput);
+            fclose($handle);
 
-                $handle = fopen($path."/readme.txt", "w");
-                fwrite($handle, $this->textInput);
-                fclose($handle);
-                $this->dirStatus = "File and directory were created.";
-
-            }catch(Exception $e){
-
-                $this->dirStatus = "File couldn't open correctly. Check spelling.";
-            }
+        }catch(Exception $e){
+             $this->dirStatus = "File couldn't open correctly. Check spelling.";
+        }
 
     } // mkDirAndFile()
 
