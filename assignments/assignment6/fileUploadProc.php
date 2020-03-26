@@ -36,8 +36,11 @@ class Upload{
     }
 
     function moveFile(){
+
+        $fileName = $_POST['enteredFileName'];
+        
         if(move_uploaded_file($_FILES["selectedFile"]["tmp_name"], 
-        "files/brian.pdf")){
+        "files/".$fileName)){
             return "Your file was successfully uploaded.";
         }else{
             $this->error = true;  // necessary here??
