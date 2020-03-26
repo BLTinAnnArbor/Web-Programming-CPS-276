@@ -9,6 +9,9 @@ else { $submitted = false; }
 if($submitted){
   $upload = new Upload();
   $output = $upload->checkFile();
+  if($upload->checkIfError()== false){
+    $output.= $upload->moveFile();
+  }
 }
 
 ?>
