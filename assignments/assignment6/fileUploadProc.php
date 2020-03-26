@@ -16,12 +16,13 @@ class Upload{
     }
 
     function checkFile(){  
-        
-        if($this->fileType != "application/pdf"){
+        if($this->fileSize > 1000000){
+            return "File too big.";
+        }
+        else if($this->fileType != "application/pdf"){
             return "File not okay, it must be a pdf file.";
-            $this->error = true;
         }else{
-            return "File is okay cuz its a pdf.";
+            return $this->moveFile();
         }
         
         //return "File Size is: {$this->fileSize}. File Type is {$this->fileType}";
@@ -38,7 +39,7 @@ class Upload{
     function moveFile(){
 
         $fileName = $_POST['enteredFileName'];
-        
+
         if(move_uploaded_file($_FILES["selectedFile"]["tmp_name"], 
         "files/".$fileName)){
             return "Your file was successfully uploaded.";

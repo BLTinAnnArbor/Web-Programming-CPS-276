@@ -11,6 +11,7 @@ if($submitted){
   $output = $upload->checkFile();
 
   if($upload->checkIfError()== false){
+    echo "It works here";
     $output = $upload->moveFile();
   }
 }
