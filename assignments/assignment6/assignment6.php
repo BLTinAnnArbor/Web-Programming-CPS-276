@@ -9,8 +9,9 @@ else { $submitted = false; }
 if($submitted){
   $upload = new Upload();
   $output = $upload->checkFile();
+
   if($upload->checkIfError()== false){
-    $output.= $upload->moveFile();
+    $output = $upload->moveFile();
   }
 }
 
@@ -49,7 +50,7 @@ if($submitted){
     
         <div class="form-group">
           <label for="fileName">File Name</label>
-          <input type="text" class="form-control" name="dirName" id="dirName">
+          <input type="text" class="form-control" name="enteredFileName" id="enteredFileName">
         </div>
 
         <div class="form-group">
