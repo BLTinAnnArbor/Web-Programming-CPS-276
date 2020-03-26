@@ -2,7 +2,6 @@
 
 class Upload{
 
-    private $error;
     private $fileName;
     private $fileSize;
     private $fileType;
@@ -16,7 +15,7 @@ class Upload{
 
     function checkFile(){
         /*
-        if($_FILES["selectedFile"]["size"] > 10000){
+        if($_FILES["selectedFile"]["size"] > 100000){
             return "File is too big.";
         }else{
             return "File size is okay.";

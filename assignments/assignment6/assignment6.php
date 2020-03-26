@@ -34,27 +34,13 @@ if($submitted){
     
     <h2>File Upload</h2>
     
-
-    <p>
       <?php 
     
       echo $output;
-
-       
+      
       ?>
 
-    </p>
-  
-    <?php
-
-    //if($submitted){
-      //$path = "directories/".$_POST['dirName']."/readme.txt";
-      //echo "<a href= $path>Path where file is located</a>"; 
-   // }
-      
-    ?>
-
-    <br><br>
+      <br><br>
 
     <form action="assignment6.php" method="post" enctype="multipart/form-data">
     
