@@ -1,19 +1,14 @@
 <?php
 
+require_once "classes/Crud.php";
+
 class FileList{
 
-    private $path;
+    function createList(){
 
-    function __construct() {  }
-
-    private function createList($records){
-		$list = '<ol>';
-		foreach ($records as $row){
-			$list .= "<li> <a target='_blank' href = {$row['path']}>{$row['file_name']} </li>";
-		}
-		$list .= '</ol>';
-		return $list;
+        $crud = new Crud();
+        return $crud->getFiles();	
     }
+} 
 
-
-} // class FileList
+?>

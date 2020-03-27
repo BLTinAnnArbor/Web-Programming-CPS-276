@@ -1,45 +1,46 @@
 <?php
-require 'Pdo_methods.php';
+
+require_once "Pdo_methods.php";
 
 class Crud extends PdoMethods{
 
-	public function getNames($type){
+	public function getFiles(){
 		
 		/* CREATE AN INSTANCE OF THE PDOMETHODS CLASS*/
 		$pdo = new PdoMethods();
 
 		/* CREATE THE SQL */
-		$sql = "SELECT * FROM short_names";
+		$sql = "SELECT DISTINCT entered_file_name, file_path FROM files ORDER BY entered_file_name";
+
 		$records = $pdo->selectNotBinded($sql);
+
 		/* IF THERE WAS AN ERROR DISPLAY MESSAGE */
 		if($records == 'error'){
 			return 'There has been and error processing your request';
 		}
 		else {
 			if(count($records) != 0){
-				if($type == 'list'){return $this->createList($records);}
-				if($type == 'input'){return $this->createInput($records);}	
+				return $this->displayLinks($records);
 			}
 			else {
-				return 'no names found';
+				return "No files were found.";
 			}
 		}
-	}
+	} // getFiles()
 
-	public function addName(){
+	
+	public function addFile(){
 	
 		$pdo = new PdoMethods();
 
 		/* HERE I CREATE THE SQL STATEMENT I AM BINDING THE PARAMETERS */
-		$sql = "INSERT INTO short_names (first_name, last_name, eye_color, gender, state) VALUES (:fname, :lname, :eyecolor, :gender, :state)";
+		$sql = "INSERT INTO files (file_name, file_path, entered_file_name) VALUES (:fname, :fpath, :enteredname)";
 	    
 	    /* THESE BINDINGS ARE LATER INJECTED INTO THE SQL STATEMENT THIS PREVENTS AGAIN SQL INJECTIONS */
 	    $bindings = [
-			[':fname',$_POST['fname'],'str'],
-			[':lname',$_POST['lname'],'str'],
-			[':eyecolor',$_POST['color'],'str'],
-			[':gender',$_POST['gender'],'str'],
-			[':state',$_POST['state'],'str']
+			[':fname',$_FILES["selectedFile"]["name"],'str'],
+			[':fpath',"files/".$_FILES["selectedFile"]["name"],'str'],
+			[':enteredname',$_POST['enteredFileName'],'str']
 		];
 
 		/* I AM CALLING THE OTHERBINDED METHOD FROM MY PDO CLASS */
@@ -50,122 +51,22 @@ class Crud extends PdoMethods{
 			return 'There was an error adding the name';
 		}
 		else {
-			return 'Name has been added';
+			return "The file has been added successfully.";
 		}
-	}
-
-	public function updateNames($post){
-		$error = false;
-
-		if(isset($post['inputDeleteChk'])){
-
-			foreach($post['inputDeleteChk'] as $id){
-				$pdo = new PdoMethods();
-
-				/* HERE I CREATE THE SQL STATEMENT I AM BINDING THE PARAMETERS */
-				$sql = "UPDATE short_names SET first_name = :fname, last_name = :lname, eye_color = :eyecolor, gender = :gender, state = :state WHERE id = '{$id}'";
-
-				//return $sql;
-
-				$bindings = [
-					[':fname', $post["fname^^{$id}"], 'str'],
-					[':lname', $post["lname^^{$id}"], 'str'],
-					[':eyecolor', $post["color^^{$id}"], 'str'],
-					[':gender', $post["gender^^{$id}"], 'str'],
-					[':state', $post["state^^{$id}"], 'str'],
-				];
-
-				$result = $pdo->otherBinded($sql, $bindings);
-
-				if($result === 'error'){
-					$error = true;
-					break;
-				}
-				
-			}
-
-			if($error){
-				return "There was an error in updating a name or names";
-			}
-			else {
-				return "All names updated";
-			}
-		}
-		else {
-			return "No names selected to update";
-		}
-	}
-
-	public function deleteNames($post){
-		$error = false;
-		if(isset($post['inputDeleteChk'])){
-			foreach($post['inputDeleteChk'] as $id){
-				$pdo = new PdoMethods();
-
-				$sql = "DELETE FROM short_names WHERE id=:id";
-				
-				$bindings = [
-					[':id', $id, 'int'],
-				];
+	}  // addFile()
 
 
-				$result = $pdo->otherBinded($sql, $bindings);
-
-				if($result === 'error'){
-					$error = true;
-					break;
-				}
-			}
-			if($error){
-				return "There was an error in deleting a name or names";
-			}
-			else {
-				return "All names deleted";
-			}
-
-		}
-		else {
-			return "No names selected to delete";
-		}
-	}
-
+	/*THIS FUNCTION TAKES THE DATA FROM THE DATABASE AND RETURN AN UNORDERED LIST OF THE DATA 
+	  and it is called by getFiles() above   */
 	
-
-	/*THIS FUNCTION TAKES THE DATA FROM THE DATABASE AND RETURN AN UNORDERED LIST OF THE DATA*/
-	private function createList($records){
-		$list = '<ol>';
+	private function displayLinks($records){
+		$list = '<ul>';
 		foreach ($records as $row){
-			$list .= "<li>Name: {$row['first_name']} {$row['last_name']} - Eye Color: {$row['eye_color']} - Gender: {$row['gender']} - State: {$row['state']}</li>";
+			$list .= "<li><a target='_blank' href={$row['file_path']}>{$row['entered_file_name']}</li>";
 		}
-		$list .= '</ol>';
+		$list .= '</ul>';
 		return $list;
-	}
-
-	/*THIS FUNCTION TAKES THE DATA AND RETURNS THE DATA IN INPUT ELEMENTS SO IT CAN BE EDITED.  */
-	private function createInput($records){
-		$output = "<form method='post' action='update_delete_name.php'>";
-		$output .= "<input class='btn btn-success' type='submit' name='update' value='Update'>";
-		$output .= "<input class='btn btn-danger' type='submit' name='delete' value='Delete'>";
-		$output .= "<table class='table table-bordered table-striped'><thead><tr>";
-		$output .= "<th>First Name</th><th>Last Name</th><th>Eye Color</th><th>Gender</th><th>State</th><th>Update/Delete</th><tbody>";
-		foreach ($records as $row){
-			$output .= "<tr><td><input type='text' class='form-control' name='fname^^{$row['id']}' value='{$row['first_name']}'></td>";
-
-			$output .= "<td><input type='text' class='form-control' name='lname^^{$row['id']}' value='{$row['last_name']}'></td>";
-
-			$output .= "<td><input type='text' class='form-control' name='color^^{$row['id']}' value='{$row['eye_color']}'></td>";
-
-			$output .= "<td><input type='text' class='form-control' name='gender^^{$row['id']}' value='{$row['gender']}'></td>";
-
-			$output .= "<td><input type='text' class='form-control' name='state^^{$row['id']}' value='{$row['state']}'></td>";
-
-			$output .= "<td><input type='checkbox' name='inputDeleteChk[]' value='{$row['id']}'></td></tr>";
-		}
-		
-		$output .= "</tbody></table></form>";
-        return $output;
-        
-    } //createInput($records)
+    }
 
 } // class Crud extends PdoMethods
 

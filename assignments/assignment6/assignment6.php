@@ -40,7 +40,7 @@ if ($submitted) {
 
     $file = "displayLinks.php";
 
-    echo "<a href= $file>Show file list</a>";
+    echo "<a href= $file>Show file list</a><br><br>";
 
     echo $output;
 

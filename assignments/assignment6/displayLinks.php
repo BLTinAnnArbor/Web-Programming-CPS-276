@@ -3,7 +3,7 @@
 require_once 'ListFilesProc.php';
 
 $fList = new FileList();
-$output = $fList->createList($records);
+$output = $fList->createList();
 
 ?>
 
