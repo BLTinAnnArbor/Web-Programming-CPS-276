@@ -1,9 +1,13 @@
 <?php
 
+require_once "Db_conn.php";
+require_once "Pdo_methods.php";
+
 class Upload{
 
     private $fileName;
     private $fileSize;
+
     private $fileType;
    
     function __construct() {
@@ -27,14 +31,14 @@ class Upload{
        // return "File Size is: {$this->fileSize}. File Type is {$this->fileType}";
     }
 
-
     function moveFile(){
 
         $fileName = $_POST['enteredFileName'];
 
         if(move_uploaded_file($_FILES["selectedFile"]["tmp_name"], "files/".$fileName)){
 
-            // Insert things into table here
+            // Insert things into table here- function call
+            $this->fillTable();
             return "Your file was successfully uploaded.";
         }else{
             return "There was a problem uploading your file. Please try again.";
@@ -42,10 +46,11 @@ class Upload{
 
     }
 
+    function fillTable(){
+
+
+    }
+
 } // class Upload
-
-
-
-
 
 ?>

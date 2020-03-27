@@ -1,7 +1,9 @@
 <?php
 
 require_once 'ListFilesProc.php';
-$output = "";
+
+$fList = new FileList();
+$output = $fList->createList($records);
 
 ?>
 
@@ -27,11 +29,11 @@ $output = "";
 
         $file = "assignment6.php";
 
-        echo "<a href= $file>Add File</a>";
+        echo "<a href= $file>Add File</a><br><br>";
 
+        echo $output;
 
         ?>
-
 
     </div>
 </body>
