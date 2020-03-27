@@ -1,7 +1,8 @@
 <?php
 
-require_once "Db_conn.php";
-require_once "Pdo_methods.php";
+require_once "classes/Db_conn.php";
+require_once "classes/Pdo_methods.php";
+require_once "classes/Crud.php";
 
 class Upload{
 
