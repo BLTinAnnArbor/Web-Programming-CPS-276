@@ -1,8 +1,10 @@
 <?php
-/* THIS CLASS EXTENDS THE DATABASE CONNECTION CLASS AND BUILDS ON IT WITH PDO COMMANDS */
+
+/* THIS CLASS EXTENDS THE DATABASE CONNECTION CLASS AND BUILD ON IT WITH PDO COMMANDS */
 /* THE DATABASE CONNECTION CLASS IS STORED OUTSIDE OF THE EXAMPLE FILES SO YOU CANNOT SEE THE CONNECTION INFORMATION. ALSO IT IS MORE SECURE*/
 
 require_once "Db_conn.php";
+
 date_default_timezone_set('America/Detroit');
 
 class PdoMethods extends DatabaseConn {
@@ -29,7 +31,7 @@ class PdoMethods extends DatabaseConn {
 		}
 	}
 
-	/* THIS FUNCTION DOES THE SAME AS THE ABOVE BUT DOES NOT NEED ANY BINDED PARAMETERS ARE NO PARAMTERS ARE PASSED */
+	/* THIS FUNCTION DOES THE SAME AS THE ABOVE, BUT DOES NOT NEED ANY BINDED PARAMETERS ARE NO PARAMTERS ARE PASSED */
 	public function selectNotBinded($sql){
 		$this->error = false;
 		try{
@@ -50,7 +52,7 @@ class PdoMethods extends DatabaseConn {
 		}
 	}
 
-	/* BECAUSE ONLY SELECT QUERIES RETURN A VALUE- THIS DOES ALL THE REST: CREATE, UPDATE, DELETE */
+	/* BECAUSE ONLY SELECT QUERIES RETURN A VALUE THIS DOES ALL THE REST-  CREATE, UPDATE, DELETE */
 	public function otherBinded($sql, $bindings){
 		$this->error = false;
 		$this->db_connection();
@@ -72,7 +74,7 @@ class PdoMethods extends DatabaseConn {
 		$this->conn = $this->db->dbOpen();
 	}
 
-	/* CREATES THE BINDINGS */
+	/* CREATES THE BINDINGS (I ONLY HAVE TWO HERE BUT I COULD CREATE OTHERS. */
 	private function createBinding($bindings){
 		foreach ($bindings as $value) {
 			switch($value[2]){
@@ -82,6 +84,7 @@ class PdoMethods extends DatabaseConn {
 			
 		}
 	}
+
 
 	/* THIS METHOD EXECUTES THE STATEMENT AND IF THAT FAILS IT WRITES THE ERROR THE AN ERROR LOG. */
 	private function executeStatement(){
@@ -93,9 +96,5 @@ class PdoMethods extends DatabaseConn {
 			file_put_contents('../logs/pdo_errors.log', $error, FILE_APPEND);
 			$this->error = true;
 		}
-    }
-    
-
-} // class PdoMethods extends DatabaseConn
-
-?>
+	}
+}

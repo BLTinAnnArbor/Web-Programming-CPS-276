@@ -33,7 +33,7 @@ class Crud extends PdoMethods{
 	
 		$pdo = new PdoMethods();
 
-		/* HERE I CREATE THE SQL STATEMENT I AM BINDING THE PARAMETERS */
+		/* HERE I CREATE THE SQL STATEMENT and I AM BINDING THE PARAMETERS */
 		$sql = "INSERT INTO files (file_name, file_path, entered_file_name) VALUES (:fname, :fpath, :enteredname)";
 	    
 	    /* THESE BINDINGS ARE LATER INJECTED INTO THE SQL STATEMENT THIS PREVENTS AGAIN SQL INJECTIONS */
