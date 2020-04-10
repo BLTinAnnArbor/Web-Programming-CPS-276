@@ -31,7 +31,7 @@ name.addName = function(){
 		else {
 			Util.getEl('#displayNames')[0].value = json.names;
 		}	
-		
+	
 	}, data);
 }
 

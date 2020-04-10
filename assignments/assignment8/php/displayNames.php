@@ -1,5 +1,5 @@
 <?php 
-require_once '../classes/Pdo_methods.php';
+require '../classes/Pdo_methods.php';
 
 $displayObject = new Display();
 $names = $displayObject->displayNames();
@@ -10,7 +10,7 @@ class Display{
 
         $pdo = new PdoMethods();
 
-        $sql = "SELECT name FROM names ORDER BY name ASC";
+        $sql = "SELECT DISTINCT name FROM names ORDER BY name ASC";
         $records = $pdo->selectNotBinded($sql);
 
         //return $records;  // returns [object Object],[object, object],...

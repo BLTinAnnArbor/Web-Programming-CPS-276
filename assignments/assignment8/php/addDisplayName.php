@@ -1,8 +1,8 @@
 <?php
-require_once '../classes/Pdo_methods.php';
+require '../classes/Pdo_methods.php';
 
-//require_once 'displayNames.php';  // This line makes it error which
-                   // must have something to do with the JavaScript. ?
+//require 'displayNames.php';  // This line makes it error which
+                   // must have something to do with the JavaScript. ? No.
 
 $anObject = new AddNameClass();
 $names = $anObject->addName();
@@ -42,7 +42,7 @@ class AddNameClass{
 
             $pdo2 = new PdoMethods();
 
-            $sql2 = "SELECT name FROM names ORDER BY name ASC";
+            $sql2 = "SELECT DISTINCT name FROM names ORDER BY name ASC";
             $records2 = $pdo2->selectNotBinded($sql2);
 
             return  $this->getString($records2);
