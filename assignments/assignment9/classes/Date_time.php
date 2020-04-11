@@ -6,7 +6,6 @@ class Date_time{
 
     function checkAddNote(){
 
-
          if(isset($_POST['addNote'])){
 
             //return "Add Note was pressed.";
@@ -15,33 +14,35 @@ class Date_time{
          }else{  return ""; }
     }             
 
+
     function checkGetNotes(){
 
-        if(isset($_POST['getNotes'])){
-            //return "Get Notes was pressed.";
-            return $this->getNotes();
+        if(isset($_POST['getNotes']) ){
 
+            if(($_POST['begDate'] != "") && ($_POST['endDate'] != "")){
+                return $this->getNotes();
+            }
         }else{  return ""; }
     } 
+
 
     function addNote(){
         
         $ts = strtotime($_POST['dateTime']);
+        $tsInt = (int)$ts;
         $note = $_POST['textInput'];
 
-        $pdo2 = new PdoMethods();
+        $pdo = new PdoMethods();
     
-        $sql2 = "INSERT INTO notes (my_timestamp, note_contents) VALUES (:ts, :note)";
+        $sql = "INSERT INTO notes (my_timestamp, note_contents) VALUES (:tsInt, :note)";
             
         $bindings = [
-            [':ts', $ts,'str'],
+            [':tsInt', $tsInt,'int'],
             [':note', $note,'str']
         ];
     
-        // Calling otherBinded() from PdoMethods class
-        $result = $pdo2->otherBinded($sql2, $bindings);
+        $result = $pdo->otherBinded($sql, $bindings);
     
-        // Using object $result to return 'successful' or 'error'.
         if($result === 'error'){
              return 'There was an error adding the name';
         }else {
@@ -53,13 +54,19 @@ class Date_time{
    
     function getNotes(){
 		
-		$pdo = new PdoMethods();
+        $pdo = new PdoMethods();
+        
+        $begDateTStamp = strtotime($_POST['begDate']);
 
-		$sql = "SELECT my_timestamp, note_contents FROM notes ORDER BY (int)my_timestamp";
+        $endDateTStamp = strtotime($_POST['endDate']);
+
+        $sql = "SELECT my_timestamp, note_contents FROM notes 
+        WHERE my_timestamp >= $begDateTStamp AND 
+        my_timestamp <= $endDateTStamp
+        ORDER BY my_timestamp";
 
 		$records = $pdo->selectNotBinded($sql);
 
-		// If error then display message
 		if($records == 'error'){
 			return 'There has been an error processing your request.';
 		}
@@ -76,24 +83,19 @@ class Date_time{
 	
 	function displayNotes($records){
 
-		$notes = "<table><tr><th>Date and Time</th><th>Note</th></tr>";
+        $notes = "<table><tr><th>Date and Time</th><th>Note</th></tr>";
 
 		foreach ($records as $row){
 
-            $ts = $row['my_timestamp'];
-            //$formattedDate = date("n/d/Y h:i a", $ts);
-            $tsInt = (int)$ts;
+            $tsInt = $row['my_timestamp'];
+            $ts = (string)$tsInt;
+            $formattedDate = date("n/d/Y h:i a", $ts);
 
             $note = $row['note_contents'];
-            //$notes .= "<tr><td>{$formattedDate}</td><td>{$note}</td></tr>";
-            $notes .= "<tr><td>{$tsInt}</td><td>{$note}</td></tr>";
+            $notes .= "<tr><td>{$formattedDate}</td><td>{$note}</td></tr>";
         }
-        
         $notes .= '</table>';
         return $notes;
     }
 
-
 } // class Date_time
-
-?>
