@@ -60,6 +60,10 @@ class Date_time{
 
         $endDateTStamp = strtotime($_POST['endDate']);
 
+        if($endDateTStamp < $begDateTStamp){
+            return "Beginning Date must occur before Ending Date. Please enter again.";
+        }
+
         $sql = "SELECT my_timestamp, note_contents FROM notes 
         WHERE my_timestamp >= $begDateTStamp AND 
         my_timestamp <= $endDateTStamp
