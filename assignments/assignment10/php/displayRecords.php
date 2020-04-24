@@ -13,7 +13,7 @@ function getContacts(){
 		
     $pdo = new PdoMethods();
 
-    $sql = "SELECT contact_name, address FROM contacts";
+    $sql = "SELECT contact_name, address, city FROM contacts";
 
     $records = $pdo->selectNotBinded($sql);
 
@@ -35,14 +35,15 @@ function displayContacts($records){
 
     $contacts = "<form method='post' action='index.php'><div class='form-group'>";
 
-    $contacts .= "<table><tr><th>Name</th><th>Address</th></tr>";
+    $contacts .= "<table><tr><th>Name</th><th>Address</th><th>City</tr>";
 
     foreach ($records as $row){
 
         $name = $row['contact_name'];
         $address = $row['address'];
+        $city = $row['city'];
 
-        $contacts .= "<tr><td>{$name}</td><td>{$address}</td></tr>";
+        $contacts .= "<tr><td>{$name}</td><td>{$address}</td><td>{$city}</tr>";
     }
     $contacts .= '</div></table></form>';
     return $contacts;

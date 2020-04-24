@@ -126,19 +126,17 @@ function addData($post){
   /* IF EVERYTHING WORKS ADD THE DATA HERE */
 
   $name = $post['name'];
-
-  //$name = $post['name']['value'];
-  //$address = $post['address']['value'];
-
   $address = $post['address'];
+  $city = $post['city'];
 
   $pdo = new PdoMethods();
     
-  $sql = "INSERT INTO contacts (contact_name, address) VALUES (:name, :address)";
+  $sql = "INSERT INTO contacts (contact_name, address, city) VALUES (:name, :address, :city)";
       
   $bindings = [
       [':name', $name,'str'],
-      [':address', $address,'str']
+      [':address', $address,'str'],
+      [':city', $city,'str']
   ];
 
   $result = $pdo->otherBinded($sql, $bindings);

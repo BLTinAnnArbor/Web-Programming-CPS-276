@@ -1,21 +1,17 @@
 <?php
-/* WRITE THE NECESSARY PHP CODE HERE- NOTE THE $RESULT ARRAY ON LINES 35 AND 36.  YOU WILL NEED TO RETURN
- AN ARRAY THAT CONTAINS TWO INDEXES. FIRST IS A PLACE FOR A MESSAGE (MAYBE BLANK OR NOT DEPENDING 
- ON THE SITUATION) AND THE OTHER IS THE FORM OR THE TABLE DISPLAYING THE DATA 
-
- The code below errors on line 11 and 15 if ip_address....assignment10/   is clicked.
-  because it doesn't recognize 'form' or 'display'
+/*
+ The code below errors on line 8 and 12 if ip_address....assignment10/   is clicked. And also if
+ an incorrectly filled out form it submitted, it doesn't recognize 'page'
 */
 
  if(isset($_GET)){
-	 if($_GET['page'] === 'form'){
+	 if($_GET['page'] == 'form'){
 		 require('php/form.php');
 		 $result = init();
 	 }
-	 else if($_GET['page'] === 'display'){
+	 else if($_GET['page'] == 'display'){
 		 require('php/displayRecords.php');
-		 //$result[0] = "";
-		 //$result[1] = getData();
+		 
 		 $d = new DisplayRecords();
 		 $result = $d->getResult();
 	 }
@@ -24,9 +20,7 @@
 
 	 require('php/form.php');
 	 $result = init();
-
 }
-
 ?>
 
 <!DOCTYPE html>
