@@ -2,7 +2,8 @@
 
 /* HERE I REQUIRE AND USE THE STICKYFORM CLASS THAT DOES ALL THE VALIDATION AND CREATES THE STICKY FORM. 
  THE STICKY FORM CLASS USES THE VALIDATION CLASS TO DO THE VALIDATION WORK.*/
-require_once('classes/StickyForm.php');
+require('classes/StickyForm.php');
+require('classes/Pdo_methods.php');
 $stickyForm = new StickyForm();
 
 
@@ -36,7 +37,7 @@ function init(){
       /* IF THERE WAS A PROBLEM WITH OUR FORM VALIDATION THEN THE MODIFIED ARRAY ($POSTARR) WILL BE 
       SENT AS THE SECOND PARAMETER.  THIS MODIFIED ARRAY IS THE SAME AS THE ELEMENTS ARRAY, BUT 
       ERROR MESSAGES AND VALUES HAVE BEEN ADDED TO DISPLAY ERRORS AND MAKE IT STICKY */
-      return getForm("",$postArr);
+      return getForm("Please Correct Errors Below",$postArr);
     }
     
   }
@@ -44,7 +45,7 @@ function init(){
   /* THIS CREATES THE FORM BASED ON THE ORIGINAL ARRAY THIS IS CALLED WHEN THE PAGE FIRST LOADS AND A 
   FORM HAS NOT BEEN SUBMITTED */
   else {
-      return getForm("",$elementsArr);
+      return getForm("Enter Contact Info",$elementsArr);
     } 
 }
 
@@ -125,9 +126,10 @@ function addData($post){
   /* IF EVERYTHING WORKS ADD THE DATA HERE */
 
   $name = $post['name'];
-  return $name;
 
-  /*
+  //$name = $post['name']['value'];
+  //$address = $post['address']['value'];
+
   $address = $post['address'];
 
   $pdo = new PdoMethods();
@@ -146,7 +148,7 @@ function addData($post){
   }else {
        return "The file has been added successfully.";
   }
- */ 
+ 
 
 } // addData()
    
@@ -158,8 +160,8 @@ function getForm($acknowledgement, $elementsArr){
 global $stickyForm;
 $options = $stickyForm->createOptions($elementsArr['state']);
 
-/* THIS IS A HEREDOC STRING WHICH CREATES THE FORM AND ADDS THE APPROPRIATE VALUES AND ERROR MESSAGES */
-$form = <<<HTML
+    /* THIS IS A HEREDOC STRING WHICH CREATES THE FORM AND ADDS THE APPROPRIATE VALUES AND ERROR MESSAGES */
+    $form = <<<HTML
     <form method="post" action="index.php">
     <div class="form-group">
       <label for="name">Name ( Letters and spaces only ){$elementsArr['name']['errorOutput']}</label>

@@ -3,27 +3,29 @@
  AN ARRAY THAT CONTAINS TWO INDEXES. FIRST IS A PLACE FOR A MESSAGE (MAYBE BLANK OR NOT DEPENDING 
  ON THE SITUATION) AND THE OTHER IS THE FORM OR THE TABLE DISPLAYING THE DATA 
 
- The code below errors on line 9 and 13 if ip_address....assignment10/   is clicked.
+ The code below errors on line 11 and 15 if ip_address....assignment10/   is clicked.
   because it doesn't recognize 'form' or 'display'
-
+*/
 
  if(isset($_GET)){
 	 if($_GET['page'] === 'form'){
-		 require_once('php/form.php');
+		 require('php/form.php');
 		 $result = init();
 	 }
 	 else if($_GET['page'] === 'display'){
-		 require_once('php/displayRecords.php');
-		 $result[0] = "";
-		 $result[1] = "Hi"; //getData();
+		 require('php/displayRecords.php');
+		 //$result[0] = "";
+		 //$result[1] = getData();
+		 $d = new DisplayRecords();
+		 $result = $d->getResult();
 	 }
  }
  else{
-*/
-	 require_once('php/form.php');
+
+	 require('php/form.php');
 	 $result = init();
 
-//}
+}
 
 ?>
 
@@ -44,6 +46,23 @@
 			nav ul li {
 				list-style: none;
 			}
+			table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
 			</style>
 	</head>
 
@@ -58,7 +77,7 @@
 		
 		<?php
 			// The first element is the acknowlegement, if any.
-			echo $result[0]; 
+			echo "<h3 align='center'>$result[0]</h3>"; 
 
 			// The form goes here. Look at form.php to see how the return is done.
 			echo $result[1]; 
