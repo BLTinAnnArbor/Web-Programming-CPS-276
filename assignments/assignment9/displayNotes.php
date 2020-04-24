@@ -45,7 +45,7 @@ $notes = $dt->checkGetNotes();
 
         <h1>Display Notes</h1>
         <p> <a href='assignment9.php'>Add Note</a> </p>
-        
+
         <form action="displayNotes.php" method="post">
 
             <div class="form-group">
