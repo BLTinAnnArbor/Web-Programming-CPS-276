@@ -4,7 +4,7 @@
  an incorrectly filled out form it submitted, it doesn't recognize 'page'
 */
 
- if(isset($_GET)){
+ if(isset($_GET['page'])){
 	 if($_GET['page'] == 'form'){
 		 require('php/form.php');
 		 $result = init();

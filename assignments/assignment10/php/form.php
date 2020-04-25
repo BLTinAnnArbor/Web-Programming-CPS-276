@@ -128,15 +128,28 @@ function addData($post){
   $name = $post['name'];
   $address = $post['address'];
   $city = $post['city'];
+  $state = $post['state'];
+  $phone = $post['phone'];
+  $email = $post['email'];
+  $dob = $post['dob'];
+  $contacts = $post['contactTypes'];
+  $age = $post['ageRange'];
 
   $pdo = new PdoMethods();
     
-  $sql = "INSERT INTO contacts (contact_name, address, city) VALUES (:name, :address, :city)";
+  $sql = "INSERT INTO contacts (contact_name, address, city, state, phone, email, dob, contact_types, age_range)";
+  $sql .= " VALUES (:name, :address, :city, :state, :phone, :email, :dob, :contact_types, :age_range)";
       
   $bindings = [
       [':name', $name,'str'],
       [':address', $address,'str'],
-      [':city', $city,'str']
+      [':city', $city,'str'],
+      [':state', $state,'str'],
+      [':phone', $phone,'str'],
+      [':email', $email,'str'],
+      [':dob', $dob,'str'],
+      [':contact_types', $contacts,'str'],
+      [':age_range', $age,'str']
   ];
 
   $result = $pdo->otherBinded($sql, $bindings);
