@@ -34,7 +34,7 @@ class Validation{
 		return $this->setError($match);
 	}
 	private function dob($value){
-		$match = preg_match('/^[0-1][0-2]\/[0-3][0-9]\/[1-2][\d]{3}$/', $value); // dob regex
+		$match = preg_match('/^[0-1][0-9]\/[0-3][0-9]\/[1-2][\d]{3}$/', $value); // dob regex
 		return $this->setError($match);
 	}
 	private function setError($match){

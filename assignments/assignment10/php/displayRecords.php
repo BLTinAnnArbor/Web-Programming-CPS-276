@@ -35,7 +35,7 @@ function displayContacts($records){
 
     $contacts = "<form method='post' action='index.php'><div class='form-group'>";
 
-    $contacts .= "<table><tr><th>Name</th><th>Address</th><th>City</th><th>State</th>";
+    $contacts .= "<table><tr><th>Name</th><th>Address</th>";
     $contacts .= "<th>Phone</th><th>Email</th><th>Date of Birth</th><th>Contact</th><th>Age</th></tr>";
 
     foreach ($records as $row){
@@ -47,11 +47,12 @@ function displayContacts($records){
         $phone = $row['phone'];
         $email = $row['email'];
         $dob = $row['dob'];
-        $contacts = $row['contact_types'];
+        $contacts_string = $row['contact_types'];
+        //$contacts_string = unserialize($row['contact_types']);
         $age = $row['age_range'];
 
-        $contacts .= "<tr><td>{$name}</td><td>{$address}</td><td>{$city}</td><td>{$state}</td>";
-        $contacts .="<td>{$phone}</td><td>{$email}</td><td>{$dob}</td><td>{$contacts}</td><td>{$age}</td></tr>";
+        $contacts .= "<tr><td>{$name}</td><td>{$address}</td>";
+        $contacts .="<td>{$phone}</td><td>{$email}</td><td>{$dob}</td><td>{$contacts_string}</td><td>{$age}</td></tr>";
     }
     $contacts .= '</div></table></form>';
     return $contacts;

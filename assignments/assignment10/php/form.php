@@ -104,7 +104,7 @@ $elementsArr = [
 "errorOutput"=>"",
 "type"=>"text",
     "value"=>"",
-    "regex"=>"date"
+    "regex"=>"dob"
 ],
   "ageRange"=>[
     "errorMessage"=>"<span style='color: red; margin-left: 15px;'>You must select an age range.</span>",
@@ -132,13 +132,14 @@ function addData($post){
   $phone = $post['phone'];
   $email = $post['email'];
   $dob = $post['dob'];
-  $contacts = $post['contactTypes'];
+  //$contacts_string = serialize($post['contactTypes']);
+  $contacts_string = $post['contactTypes'];
   $age = $post['ageRange'];
 
   $pdo = new PdoMethods();
     
   $sql = "INSERT INTO contacts (contact_name, address, city, state, phone, email, dob, contact_types, age_range)";
-  $sql .= " VALUES (:name, :address, :city, :state, :phone, :email, :dob, :contact_types, :age_range)";
+  $sql .= " VALUES (:name, :address, :city, :state, :phone, :email, :dob, :contacts_string, :age_range)";
       
   $bindings = [
       [':name', $name,'str'],
@@ -148,7 +149,7 @@ function addData($post){
       [':phone', $phone,'str'],
       [':email', $email,'str'],
       [':dob', $dob,'str'],
-      [':contact_types', $contacts,'str'],
+      [':contacts_string', $contacts_string,'str'],
       [':age_range', $age,'str']
   ];
 
