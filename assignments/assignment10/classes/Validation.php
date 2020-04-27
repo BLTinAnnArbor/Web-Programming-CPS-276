@@ -1,5 +1,4 @@
 <?php
-//YOU MUST WRITE THE CODE FOR THE OTHER REGULAR EXPRESSIONS TO BE USED
 
 class Validation{
 	/* USED AS A FLAG CHANGES TO TRUE IF ONE OR MORE ERRORS IS FOUND */
@@ -18,7 +17,7 @@ class Validation{
 	}
 	/* THE REST OF THE FUNCTIONS ARE THE INDIVIDUAL REGULAR EXPRESSION FUNCTIONS*/
 	private function name($value){
-		$match = preg_match('/^[a-z-\' ]{1,50}$/i', $value);
+		$match = preg_match('/^[a-z-\' ]{1,50}$/i', $value); // name regex
 		return $this->setError($match);
 	}
 	private function address($value){

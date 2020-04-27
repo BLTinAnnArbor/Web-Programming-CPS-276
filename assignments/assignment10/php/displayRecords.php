@@ -47,9 +47,10 @@ function displayContacts($records){
         $phone = $row['phone'];
         $email = $row['email'];
         $dob = $row['dob'];
-        $contacts_string = $row['contact_types'];
-        //$contacts_string = unserialize($row['contact_types']);
         $age = $row['age_range'];
+
+        $contacts_string = $row['contact_types'];
+
 
         $contacts .= "<tr><td>{$name}</td><td>{$address}</td>";
         $contacts .="<td>{$phone}</td><td>{$email}</td><td>{$dob}</td><td>{$contacts_string}</td><td>{$age}</td></tr>";
@@ -57,26 +58,5 @@ function displayContacts($records){
     $contacts .= '</div></table></form>';
     return $contacts;
 }
+
 } // class Contacts
-
-
-/*
-
-$output = "Hi There.";
-$ack = "I'm the acknowledgment.";
-
-// THIS IS A HEREDOC STRING WHICH CREATES THE FORM  
-$form = <<<HTML
-    <form method="post" action="index.php">
-    <div class="form-group">
-
-    echo $output; 
-   
-  </form>
-HTML;
-
- HERE I RETURN AN ARRAY THAT CONTAINS AN ACKNOWLEDGEMENT AND THE FORM.  THIS IS DISPLAYED ON 
-THE INDEX PAGE. */
-//return [$ack, $form];
-
-?>

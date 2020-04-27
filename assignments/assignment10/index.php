@@ -1,8 +1,4 @@
 <?php
-/*
- The code below errors on line 8 and 12 if ip_address....assignment10/   is clicked. And also if
- an incorrectly filled out form it submitted, it doesn't recognize 'page'
-*/
 
  if(isset($_GET['page'])){
 	 if($_GET['page'] == 'form'){
